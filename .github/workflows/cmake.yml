@@ -19,6 +19,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: uraimo/run-on-arch-action@v2.5.0
+    
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -26,8 +28,12 @@ jobs:
       run: cmake ${{github.workspace}}/src -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}
+      with:
+          arch: armv7
+          distro: ubuntu18.04
+          run: cmake --build ${{github.workspace}}
+      
+      
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
       with:
