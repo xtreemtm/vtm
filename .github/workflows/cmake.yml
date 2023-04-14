@@ -19,7 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: uraimo/run-on-arch-action@v2.5.0
     
 
     - name: Configure CMake
@@ -28,6 +27,7 @@ jobs:
       run: cmake ${{github.workspace}}/src -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
+      uses: uraimo/run-on-arch-action@v2.5.0
       with:
           arch: armv7
           distro: ubuntu18.04
@@ -37,5 +37,5 @@ jobs:
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
       with:
-        name: code-coverage-report
+        name: vtm
         path: bin/vtm
